@@ -1,0 +1,113 @@
+﻿@model string
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra cứu biển số xe</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tra cứu biển số xe</h1>
+        <form id="searchForm">
+            <label for="ten">Nhập biển số xe:</label>
+            <input type="text" id="ten" name="ten" required>
+            <button type="submit">Tra cứu</button>
+        </form>
+
+        <div id="result">
+            <!-- Kết quả tra cứu sẽ được hiển thị ở đây -->
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#searchForm").submit(function (e) {
+                e.preventDefault();
+
+                var licensePlate = $('#ten').val();
+                console.log(ten);
+
+                // Gửi yêu cầu AJAX đến controller
+                $.ajax({
+                    url: '/Home/Tracuu', // Địa chỉ URL để gửi yêu cầu
+                    method: 'GET',
+                    data: { ten: licensePlate }, // Gửi dữ liệu biển số xe
+                    success: function (response) {
+                        // Hiển thị kết quả trả về từ controller
+                        $('#result').html('<p>Biển số xe bạn vừa nhập: ' + response + '</p>');
+                    },
+                    error: function () {
+                        $('#result').html('<p class="error">Có lỗi xảy ra. Vui lòng thử lại.</p>');
+                    }
+                });
+            });
+        })
+    </script>
+</body>
+</html>
